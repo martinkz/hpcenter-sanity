@@ -41,5 +41,10 @@ export default {
         },
       ],
     },
+    {
+      title: 'Hero Image',
+      name: 'hero_image',
+      type: 'image',
+    },
   ],
 }

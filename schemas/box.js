@@ -1,8 +1,12 @@
+import {orderRankField, orderRankOrdering} from '@sanity/orderable-document-list'
+
 export default {
   name: 'box',
   type: 'document',
   title: 'Boxes',
+  orderings: [orderRankOrdering],
   fields: [
+    orderRankField({type: 'box'}),
     {
       name: 'title',
       title: 'Title',
@@ -44,7 +48,14 @@ export default {
       name: 'image',
       title: 'Images',
       type: 'array',
-      of: [{type: 'image'}],
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        },
+      ],
     },
     {
       name: 'color',
