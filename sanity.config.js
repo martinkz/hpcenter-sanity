@@ -3,15 +3,15 @@ import {deskTool} from 'sanity/desk'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemas'
 import {colorInput} from '@sanity/color-input'
-import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
-import {FolderIcon} from '@sanity/icons'
+// import './assets/customOverrides.css' // Only used with the orderable lists plugin
+import CustomLogo from './components/customLogo'
 
 // import dotenv from 'dotenv'
 // dotenv.config()
 
 export default defineConfig({
   name: 'default',
-  title: 'hpcenter',
+  title: 'HP Center',
 
   projectId: 'b61s48g6',
   dataset: 'production',
@@ -23,14 +23,15 @@ export default defineConfig({
         return S.list()
           .title('Content')
           .items([
-            ...S.documentTypeListItems(),
-            orderableDocumentListDeskItem({
-              type: 'box',
-              title: 'Boxes',
-              icon: FolderIcon,
-              S,
-              context,
-            }),
+            S.listItem().title('Homepage').id('homepage').child(
+              // Instead of rendering a list of documents, we render a single
+              // document, specifying the `documentId` manually to ensure
+              // that we're editing the single instance of the document
+              S.document().schemaType('homepage').documentId('homepage')
+            ),
+
+            // List all other types except the 'homepage' type
+            ...S.documentTypeListItems().filter((item) => item.spec.id !== 'homepage'),
           ])
       },
     }),
@@ -40,27 +41,11 @@ export default defineConfig({
 
   schema: {
     types: schemaTypes,
-    // types: (schemaTypes) => {
-    //   return [
-    //     ...schemaTypes,
-    //     {
-    //       name: 'box',
-    //       title: 'Boxes',
-    //       type: 'document',
-    //       // Optional: The plugin also exports a set of 'orderings' for use in other Document Lists
-    //       // https://www.sanity.io/docs/sort-orders
-    //       orderings: [orderRankOrdering],
-    //       fields: [
-    //         // Minimum required configuration
-    //         // orderRankField({type: 'category'}),
+  },
 
-    //         // OR you can override _some_ of the field settings
-    //         orderRankField({type: 'box', hidden: false}),
-
-    //         // ...all other fields
-    //       ],
-    //     },
-    //   ]
-    // },
+  studio: {
+    components: {
+      logo: CustomLogo,
+    },
   },
 })

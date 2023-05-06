@@ -1,12 +1,8 @@
-import {orderRankField, orderRankOrdering} from '@sanity/orderable-document-list'
-
 export default {
   name: 'box',
   type: 'document',
   title: 'Boxes',
-  orderings: [orderRankOrdering],
   fields: [
-    orderRankField({type: 'box'}),
     {
       name: 'title',
       title: 'Title',
@@ -66,4 +62,23 @@ export default {
       },
     },
   ],
+  // preview: {
+  //   select: {
+  //     title: 'title',
+  //     media: 'image.0.asset',
+  //   },
+  // },
+  // preview: {
+  //   select: {
+  //     title: 'title',
+  //     galleryImage: 'imagesGallery.0.asset',
+  //     variantImage: 'variants.0.images.0.asset',
+  //   },
+  //   prepare: ({ title, galleryImage, variantImage }) => {
+  //     return {
+  //       title,
+  //       media: galleryImage ? galleryImage : variantImage
+  //     }
+  //   }
+  // }
 }
