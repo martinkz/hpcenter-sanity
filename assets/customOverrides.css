@@ -1,0 +1,9 @@
+#box-orderable-box-0 {
+  max-width: 350px;
+}
+#box-orderable-box-0 [data-ui='Card'] {
+  background-color: transparent;
+}
+/* [data-ui='Container'] {
+  max-width: 50rem !important;
+} */
