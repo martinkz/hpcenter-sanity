@@ -39,6 +39,33 @@ export default defineConfig({
     colorInput(),
   ],
 
+  document: {
+    // prev is the result from previous plugins and thus can be composed
+    productionUrl: async (prev, context) => {
+      // context includes the client and other details
+      const {client, dataset, document} = context
+
+      if (document._type === 'page') {
+        // const slug = await client.fetch(
+        //   `*[_type == 'routeInfo' && post._ref == $postId][0].slug.current`,
+        //   {postId: document._id}
+        // )
+
+        const slug = document.slug.current
+
+        const params = new URLSearchParams()
+        params.set('preview', 'true')
+        params.set('dataset', dataset)
+
+        console.log(document)
+
+        return `https://127.0.0.1/posts/${slug}?${params}`
+      }
+
+      return prev
+    },
+  },
+
   schema: {
     types: schemaTypes,
   },
